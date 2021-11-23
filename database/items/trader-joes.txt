@@ -1,0 +1,5 @@
+- [ ] Corn chips
+- [x] Everything bagels
+- [x] Gluten free bread
+- [x] Pizza onion topper
+- [x] Champagne
