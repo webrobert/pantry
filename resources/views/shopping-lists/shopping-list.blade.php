@@ -18,17 +18,18 @@
 
     <!-- filters -->
     <div class="block mt-4 flex items-center gap-3">
-        <x-jet-input wire:model="search" class="px-2 py-2 flex-grow" placeholder="Search" />
+        <x-jet-input wire:model="search" class="px-2 py-2 flex-grow text-lg" placeholder="Search" />
     </div>
 
     <!-- items -->
     <ul wire:sortable="updateItemOrder" class="space-y-1 mt-4 pb-16" wire:loading.class="opacity-50">
         @forelse($items as $item)
-        <li wire:sortable.item="{{ $item->id }}" wire:key="item-{{ $item->id }}" class="bg-white flex items-center p-2 gap-3 shadow-md rounded-sm">
+        <li @if($activeList) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}" class="bg-white flex items-center p-2 gap-3 shadow-md rounded-sm">
 
-            <input type="checkbox" id="item-have-{{ $item->id }}" name="have" wire:click="checkItem({{$item->id}})" {{ $item->have ? 'checked' : '' }}>
+            <input type="checkbox" id="item-have-{{ $item->id }}" name="have" wire:click="checkItem({{$item->id}})" {{ $item->have ? 'checked' : '' }}
+                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
 
-            <h4 class="flex-grow">{{ $item->name }}</h4>
+            <h4 class="flex-grow text-lg truncate">{{ $item->name }}</h4>
 
             @if($showHave)
             <div class="text-gray-400 flex items-center gap-3">
@@ -93,7 +94,7 @@
 
     @push('modals')
     <!-- fixed nav -->
-    <nav class="fixed bottom-0 inset-x-0 bg-blue-300 flex justify-between items-center p-2 px-2 sm:px-6 lg:px-8">
+    <nav class="fixed bottom-0 inset-x-0 bg-blue-300 flex justify-between items-center p-2 px-2 pb-6 sm:px-6 lg:px-8">
         <span></span>
         <livewire:items.add-item-modal :shoppingList="$activeList" />
     </nav>

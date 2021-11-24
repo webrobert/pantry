@@ -1791,6 +1791,9 @@ select {
 .pb-16 {
 	padding-bottom: 4rem;
 }
+.pb-6 {
+	padding-bottom: 1.5rem;
+}
 .text-left {
 	text-align: left;
 }
