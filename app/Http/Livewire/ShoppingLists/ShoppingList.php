@@ -16,6 +16,7 @@ class ShoppingList extends Component
     public $activeList;
     public $search;
     public $items;
+    public $emptyMessage;
 
     protected $listeners = [
         'itemDeleted' => '$refresh',
@@ -42,6 +43,16 @@ class ShoppingList extends Component
                 'order' => $item['order'],
             ]);
         });
+    }
+
+    public function getEmptyMessageProperty()
+    {
+        return match(true) {
+            $this->search && ! $this->showHave   => "No matches in to SHOP for.",
+            $this->search && ! $this->activeList => "No matching items.",
+            ! $this->search                      => "This list is empty. Click + or Search to add some stuff!",
+            default                              => "No matches in this list.",
+        };
     }
 
     protected function itemDoesntExist() : bool
