@@ -3,7 +3,7 @@
     <!-- Shopping List Top Navigation -->
     <div class="block flex items-center gap-3 justify-between">
 
-        <livewire:shopping-lists.fast-switch :activeList="$activeList" />
+        @include('shopping-lists.fast-switch')
 
         <div class="flex gap-3 uppercase">
             <button wire:click="$toggle('showHave')" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ ! $showHave ?: 'text-gray-400'}}">
@@ -33,7 +33,7 @@
 
 
     <!-- items -->
-    <ul wire:sortable="updateItemOrder" class="space-y-1 mt-4 pb-16" wire:loading.class="opacity-50">
+    <ul wire:sortable="updateItemOrder" wire:loading.class="opacity-50" wire:target="chooseStore" class="space-y-1 mt-4 pb-16">
         @forelse($items as $item)
         <li @if($activeList) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}"
             class="bg-white flex items-center p-2 gap-3 shadow-md rounded-sm">

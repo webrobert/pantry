@@ -29,6 +29,15 @@ class ShoppingList extends Component
         $this->activeList = $this->shoppingLists->where('id', $id)->first();
     }
 
+    public function chooseStore($id = null)
+    {
+        sleep(1);
+        return redirect()->to($id
+            ? route('shoppingLists.show', $id)
+            : route('items.index')
+        );
+    }
+
     public function checkItem($id)
     {
         Item::find($id)->toggleHave();
@@ -49,6 +58,7 @@ class ShoppingList extends Component
     {
         return match(true) {
             $this->search && ! $this->showHave   => "No matches in to SHOP for.",
+            ! $this->search && ! $this->showHave => "Nothing to SHOP for in this list.",
             $this->search && ! $this->activeList => "No matching items.",
             ! $this->search                      => "This list is empty. Click + or Search to add some stuff!",
             default                              => "No matches in this list.",

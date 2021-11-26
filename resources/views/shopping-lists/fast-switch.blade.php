@@ -1,6 +1,6 @@
 <x-jet-dropdown align="left">
     <x-slot name="trigger">
-        <h2 class="text-xl flex items-center">
+        <h2 wire:loading.class="opacity-50" wire:target="chooseStore" class="text-xl flex items-center">
             <span>{{ $activeList->name ?? 'All items' }}</span>
             <x-svg.chevron-down class="h-5 w-5 ml-1 text-gray-400" />
         </h2>
