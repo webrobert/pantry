@@ -31,7 +31,6 @@ class ShoppingList extends Component
 
     public function chooseStore($id = null)
     {
-        sleep(1);
         return redirect()->to($id
             ? route('shoppingLists.show', $id)
             : route('items.index')
