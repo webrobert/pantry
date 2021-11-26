@@ -14,8 +14,21 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'persian-blue': '#0839C2',
+                'caribbean-green' : '#08C28B',
+            }
+        },
+    },
+    variants: {
+        boxShadow: ['responsive', 'hover', 'focus', 'active'],
+        extend: {
+            opacity: ['disabled'],
         },
     },
 
-    plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
+    plugins: [
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography')
+    ],
 };

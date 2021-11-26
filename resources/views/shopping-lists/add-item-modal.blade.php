@@ -16,7 +16,7 @@
 
             <div class="shopping-lists mt-1 gap-1">
                 @foreach($shoppingLists as $list)
-                <button wire:click="toggleList({{ $list->id }})" class="flex items-center" wire:key=list-"{{ $list->id }}">
+                <button wire:click="toggleList({{ $list->id }})" wire:key=list-"{{ $list->id }}" class="flex items-center">
                     @if (isset($itemShoppingLists[$list->id]) || ($shoppingList?->id == $list->id && ! $item->id) )
                     <svg class="mr-2 h-5 w-5 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -34,9 +34,9 @@
         </x-slot>
 
         <x-slot name="footer" class="flex justify-between">
-            <x-jet-danger-button class="flex items-center" wire:click="delete" wire:loading.attr="disabled">
-                <x-svg.trash class="h-5 w-5" />
-            </x-jet-danger-button>
+            <x-jet-secondary-button class="flex items-center" wire:click="delete" wire:loading.attr="disabled">
+                <x-svg.trash class="h-5 w-5 text-red-500" />
+            </x-jet-secondary-button>
 
             <x-jet-secondary-button class="ml-auto" wire:click="$toggle('showItemModal')" wire:loading.attr="disabled">
                 Nevermind
