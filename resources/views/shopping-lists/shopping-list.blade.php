@@ -43,16 +43,17 @@
                        class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
             </label>
 
-            <h4 class="flex-grow text-lg truncate hover:text-blue-500">{{ $item->name }}</h4>
+            <h4 class="flex-grow text-lg truncate">{{ $item->name }}</h4>
 
             @if($showHave)
             <div class="text-gray-400 flex items-center gap-3">
                 <button wire:click="$emit('editItem', '{{ $item->id }}')" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                        class="-m-2 flex-none p-2 px-3 flex items-center transition duration-75 transform focus:scale-95">
+                        class="-m-2 flex-none p-2 px-3 flex items-center transform focus:scale-95">
                     <x-svg.edit class="h-5 w-5" />
                 </button>
                 @if($activeList)
-                <button wire:sortable.handle class="-m-2 flex-none p-2 px-3 flex items-center pr-4">
+                <button wire:sortable.handle
+                        class="-m-2 flex-none p-2 px-3 flex items-center pr-4 transform active:scale-110">
                     <x-svg.selector class="h-5 w-5" />
                 </button>
                 @endif

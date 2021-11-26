@@ -2,17 +2,3 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 @import 'tailwindcss/variants';
-
-
-@layer components {
-
-    /*.scale-me {*/
-    /*    transition: all .2s ease-in-out;*/
-    /*}*/
-
-    /*.scale-me:hover {*/
-    /*    transform: scale(1.1);*/
-    /*    background: red;*/
-    /*}*/
-
-}
