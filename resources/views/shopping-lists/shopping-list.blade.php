@@ -1,11 +1,17 @@
-<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 mt-4">
+<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pt-4">
 
     <!-- Shopping List Top Navigation -->
-    <div class="block flex items-center gap-3 justify-between">
+    <div class="block flex items-center gap-3">
+
+        <a href="{{ route('shoppingLists.index') }}">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </a>
 
         @include('shopping-lists.fast-switch')
 
-        <div class="flex gap-3 uppercase">
+        <div class="flex gap-3 uppercase ml-auto">
             <button wire:click="$toggle('showHave')" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ ! $showHave ?: 'text-gray-400'}}">
                 <span class="border-dotted border-b-2 border-light-blue-500 uppercase text-sm">Shop</span>
             </button>
@@ -29,6 +35,10 @@
             </button>
             @endif
         </div>
+        <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
+                x-data @click="$wire.emit('createItemFromSearch','{{ $search }}')" style="padding: .675rem;">
+            <x-svg.plus-sm class="h-5 w-5" />
+        </button>
     </div>
 
 
@@ -36,7 +46,7 @@
     <ul wire:sortable="updateItemOrder" wire:loading.class="opacity-50" wire:target="chooseStore" class="space-y-1 mt-4 pb-16">
         @forelse($items as $item)
         <li @if($activeList) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}"
-            class="bg-white flex items-center p-2 gap-3 shadow-md rounded-sm">
+            class="bg-white flex items-center p-2 gap-3 shadow-md rounded-md">
 
             <label class="-m-2 flex-none p-2 px-3 flex items-center">
                 <input type="checkbox" id="item-have-{{ $item->id }}" name="have" wire:click="checkItem({{$item->id}})" {{ $item->have ? 'checked' : '' }}
@@ -104,15 +114,11 @@
         @endforeach
         </ul>
         @endif
-
     @endif
 
 
+
     @push('modals')
-    <!-- fixed nav -->
-    <nav class="fixed bottom-0 inset-x-0 bg-blue-300 flex justify-between items-center p-2 px-2 pb-6 sm:px-6 lg:px-8">
-        <span></span>
-        <livewire:items.add-item-modal :shoppingList="$activeList" />
-    </nav>
+    <livewire:items.add-item-modal :shoppingList="$activeList" />
     @endpush
 </div>

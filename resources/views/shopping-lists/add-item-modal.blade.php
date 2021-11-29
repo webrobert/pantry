@@ -1,7 +1,7 @@
 <div>
-    <x-jet-button wire:click="create" wire:loading.attr="disabled">
-        <x-svg.plus-sm class="h-5 w-5" />
-    </x-jet-button>
+{{--    <x-jet-button wire:click="create" wire:loading.attr="disabled">--}}
+{{--        <x-svg.plus-sm class="h-5 w-5" />--}}
+{{--    </x-jet-button>--}}
 
     <x-jet-dialog-modal wire:model="showItemModal">
         <x-slot name="title">
@@ -30,6 +30,8 @@
                 </button>
                 @endforeach
             </div>
+
+{{--            <livewire:products.product-suggestions />--}}
 
         </x-slot>
 

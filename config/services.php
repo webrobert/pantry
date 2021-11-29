@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'kroger' => [
+        'id' => env('KROGER_API_ID'),
+        'secret' => env('KROGER_API_SECRET'),
+    ]
+
 ];

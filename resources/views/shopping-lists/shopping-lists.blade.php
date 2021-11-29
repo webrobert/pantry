@@ -1,4 +1,8 @@
-<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 mt-4">
+<div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pt-4">
+
+    <h2 class="text-xl flex items-center">
+        Shopping Lists
+    </h2>
 
     <!-- filters -->
     <div class="block mt-4 flex items-center gap-3">
@@ -13,8 +17,11 @@
                 </button>
             @endif
         </div>
+        <button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition"
+            x-data @click="$wire.emit('createItemFromSearch','{{ $search }}')" style="padding: .675rem;">
+            <x-svg.plus-sm class="h-5 w-5" />
+        </button>
     </div>
-
 
     <ul class="space-y-1 mt-4 cursor-pointer card" wire:loading.class="opacity-50">
         @foreach ($shoppingLists as $item)
@@ -31,10 +38,6 @@
     </ul>
 
     @push('modals')
-    <!-- fixed nav -->
-    <nav class="fixed bottom-0 inset-x-0 bg-blue-300 flex justify-between text-sm text-blue-900 uppercase font-mono items-center p-2 pb-6 px-2 sm:px-6 lg:px-8">
-        <span></span>
-        <livewire:shopping-lists.add-list-modal />
-    </nav>
+    <livewire:shopping-lists.add-list-modal />
     @endpush
 </div>

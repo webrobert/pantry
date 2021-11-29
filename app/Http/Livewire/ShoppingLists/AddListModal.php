@@ -10,7 +10,10 @@ class AddListModal extends Component
     public $store;
     public $showStoreModal = false;
 
-    protected $listeners = ['editShoppingList' => 'edit'];
+    protected $listeners = [
+        'editShoppingList' => 'edit',
+        'createItemFromSearch' => 'create'
+    ];
 
     public function mount()
     {
@@ -24,9 +27,10 @@ class AddListModal extends Component
         ];
     }
 
-    public function create()
+    public function create($name = null)
     {
         $this->store = new ShoppingList();
+        $this->store->fill(['name' => $name]);
         $this->showStoreModal = true;
     }
 

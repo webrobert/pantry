@@ -25,6 +25,11 @@ class AddItemModal extends Component
         $this->item = new Item();
     }
 
+//    public function updatedShowItemModal()
+//    {
+//        $this->emit('itemActive', $this->item );
+//    }
+
     protected function rules()
     {
         return [
@@ -47,12 +52,14 @@ class AddItemModal extends Component
     {
         $this->item = new Item();
         $this->item->fill(['name' => $name]);
+        $this->emit('itemActive', $this->item );
         $this->showItemModal = true;
     }
 
     public function edit($id)
     {
         $this->item = Item::find($id);
+        $this->emit('itemActive', $this->item );
         $this->itemShoppingLists = $this->item->shoppinglists->keyBy('id')->toArray();
         $this->showItemModal = true;
     }
