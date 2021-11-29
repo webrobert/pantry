@@ -2,21 +2,18 @@
 
     <!-- Shopping List Top Navigation -->
     <div class="block flex items-center gap-3">
-
         <a href="{{ route('shoppingLists.index') }}">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
+            <x-svg.chevron-left class="h-5 w-5" />
         </a>
 
         @include('shopping-lists.fast-switch')
 
         <div class="flex gap-3 uppercase ml-auto">
-            <button wire:click="$toggle('showHave')" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ ! $showHave ?: 'text-gray-400'}}">
+            <button wire:click="$set('showHave', false)" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ ! $showHave ?: 'text-gray-400'}}">
                 <span class="border-dotted border-b-2 border-light-blue-500 uppercase text-sm">Shop</span>
             </button>
 
-            <button wire:click="$toggle('showHave')" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ $showHave ?: 'text-gray-400'}}">
+            <button wire:click="$set('showHave', true)" wire:loading.attr="disabled" wire:loading.class="opacity-50" class="flex items-center {{ $showHave ?: 'text-gray-400'}}">
                 <span class="border-dotted border-b-2 border-light-blue-500 uppercase text-sm">Manage</span>
             </button>
         </div>
@@ -29,9 +26,7 @@
             @if($search)
             <button wire:click="$set('search', '')" wire:loading.attr="disabled" wire:loading.class="opacity-50"
                     class="absolute right-0 top-0 flex-none text-gray-400 p-2 px-3 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                </svg>
+                <x-svg.x-circle class="h-7 w-7" />
             </button>
             @endif
         </div>
@@ -43,8 +38,8 @@
 
 
     <!-- items -->
-    <ul wire:sortable="updateItemOrder" wire:loading.class="opacity-50" wire:target="chooseStore" class="space-y-1 mt-4 pb-16">
-        @forelse($items as $item)
+    <ul wire:sortable="updateItemOrder" wire:loading.class="opacity-50" wire:target="changeList" class="space-y-1 mt-4">
+        @forelse($this->Items as $item)
         <li @if($activeList) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}"
             class="bg-white flex items-center p-2 gap-3 shadow-md rounded-md">
 
@@ -71,52 +66,37 @@
             @endif
         </li>
         @empty
-        <li>
-            {{ $this->EmptyMessage }}
+        <li class="flex items-center justify-center bg-indigo-400 rounded-md" style="min-height: 45px;">
+            <span class="text-sm uppercase text-white font-semibold ">{{ $this->EmptyMessage }}</span>
         </li>
         @endforelse
     </ul>
 
+    <!-- itemsNotInList -->
+    @if($this->Items->isEmpty() && $search && ! $this->ItemsNotInList->isEmpty())
+    <h3 class="uppercase font-medium text-sm mt-4">Items from other lists</h3>
 
-    @if($items->isEmpty() && $search )
+    <ul class="space-y-1 mt-1 pb-16" wire:loading.class="opacity-50">
+        @foreach ($this->ItemsNotInList as $item)
+        <li wire:key="item-{{ $item->id }}" class="bg-gray-100 flex items-center p-2 gap-3 shadow-md rounded-md">
 
-        <div class="flex items-center justify-center bg-blue-300 rounded-md" style="min-height: 100px; margin-top: -3.5rem">
-            <div class="flex flex-col items-center">
-                <h3 class="uppercase font-medium text-sm">
-                    "<b>{{ $search }}</b>" not found.</h3>
+            <input wire:click="checkItem({{$item->id}})" type="checkbox" id="item-have-{{ $item->id }}" name="have"
+                   class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                   {{ $item->have ? 'checked' : '' }}>
 
-                <x-jet-secondary-button class="mt-3 flex items-center justify-center" wire:click="$emit('createItemFromSearch','{{ $search }}' )">
-                    <x-svg.plus-sm class="h-5 w-5 mr-1" />
-                    <span>add</span>
-                </x-jet-secondary-button>
+            <h4 class="flex-grow">{{ $item->name }}</h4>
+
+            @if($showHave)
+            <div class="text-gray-400 flex items-center gap-3">
+                <button wire:click="$emit('editItem', '{{ $item->id }}')" wire:loading.attr="disabled" wire:loading.class="opacity-50">
+                    <x-svg.edit class="h-5 w-5" />
+                </button>
             </div>
-        </div>
-
-        @if(!$itemsNotInList->isEmpty())
-        <h3 class="uppercase font-medium text-sm mt-4">Items from other lists</h3>
-        <!-- itemsNotInList -->
-        <ul class="space-y-1 mt-1 pb-16" wire:loading.class="opacity-50">
-        @foreach ($itemsNotInList as $item)
-            <li wire:key="item-{{ $item->id }}" class="bg-gray-50 flex items-center p-2 gap-3 shadow-md rounded-sm">
-
-                <input type="checkbox" id="item-have-{{ $item->id }}" name="have" wire:click="checkItem({{$item->id}})" {{ $item->have ? 'checked' : '' }}>
-
-                <h4 class="flex-grow">{{ $item->name }}</h4>
-
-                @if($showHave)
-                <div class="text-gray-400 flex items-center gap-3">
-                    <button wire:click="$emit('editItem', '{{ $item->id }}')" wire:loading.attr="disabled" wire:loading.class="opacity-50">
-                        <x-svg.edit class="h-5 w-5" />
-                    </button>
-                </div>
-                @endif
-            </li>
+            @endif
+        </li>
         @endforeach
-        </ul>
-        @endif
+    </ul>
     @endif
-
-
 
     @push('modals')
     <livewire:items.add-item-modal :shoppingList="$activeList" />

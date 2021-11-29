@@ -93,6 +93,6 @@ class AddItemModal extends Component
     {
         $this->itemShoppingLists = $this->item->shoppinglists->keyBy('id')->toArray();
 
-        return view('shopping-lists.add-item-modal');
+        return view('items.add-item-modal');
     }
 }

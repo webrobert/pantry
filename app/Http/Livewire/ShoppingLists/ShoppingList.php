@@ -9,14 +9,10 @@ use App\Models\Item;
 class ShoppingList extends Component
 {
     public $showHave = true;
-    public $itemsNotInList;
-    public $shoppingLists;
     public $sort = 'asc';
     public $activeItem;
     public $activeList;
     public $search;
-    public $items;
-    public $emptyMessage;
 
     protected $listeners = [
         'itemDeleted' => '$refresh',
@@ -25,11 +21,10 @@ class ShoppingList extends Component
 
     public function mount($id = null)
     {
-        $this->shoppingLists = ShoppingListModel::all();
         $this->activeList = $this->shoppingLists->where('id', $id)->first();
     }
 
-    public function chooseStore($id = null)
+    public function changeList($id = null)
     {
         return redirect()->to($id
             ? route('shoppingLists.show', $id)
@@ -53,37 +48,48 @@ class ShoppingList extends Component
         });
     }
 
-    public function getEmptyMessageProperty()
-    {
-        return match(true) {
-            $this->search && ! $this->showHave   => "No matches in to SHOP for.",
-            ! $this->search && ! $this->showHave => "Nothing to SHOP for in this list.",
-            $this->search && ! $this->activeList => "No matching items.",
-            ! $this->search                      => "This list is empty. Click + or Search to add some stuff!",
-            default                              => "No matches in this list.",
-        };
-    }
-
     protected function itemDoesntExist() : bool
     {
         return ($this->activeList && $this->search && $this->items->isEmpty());
     }
 
-    public function render()
+    public function getShoppingListsProperty()
+    {
+        return ShoppingListModel::all();
+    }
+
+    public function getEmptyMessageProperty()
+    {
+        return match(true) {
+            $this->search && ! $this->showHave   => "No matches in to shop for",
+            ! $this->search && ! $this->showHave => "Nothing to shop for in this list",
+            $this->search && ! $this->activeList => "No matching items",
+            ! $this->search                      => "This list is empty",
+            default                              => "No matches in this list",
+        };
+    }
+
+    public function getItemsNotInListProperty()
+    {
+        return $this->itemDoesntExist()
+            ? Item::where('name', 'LIKE', "%{$this->search}%")->get()
+            : collect();
+    }
+
+    public function getItemsProperty()
     {
         $query = $this->activeList
             ? $this->activeList->items($this->sort)
             : Item::query();
 
-        $this->items = $query
+        return $query
             ->where('name', 'LIKE', "%{$this->search}%")
             ->when( ! $this->showHave, fn ($q) => $q->where('have', false))
             ->get();
+    }
 
-        $this->itemsNotInList = $this->itemDoesntExist()
-            ? Item::where('name', 'LIKE', "%{$this->search}%")->get()
-            : collect();
-
+    public function render()
+    {
         return view('shopping-lists.shopping-list');
     }
 }

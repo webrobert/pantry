@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire\ShoppingLists;
 
+use App\Models\ShoppingList;
 use Livewire\Component;
 
 class ShoppingLists extends Component
 {
-    public $shoppingLists;
     public $search;
 
     protected $listeners = [
@@ -14,12 +14,16 @@ class ShoppingLists extends Component
         'listDeleted' => '$refresh'
     ];
 
+    public function getShoppingListsProperty()
+    {
+        return ShoppingList::query()
+            ->where('name', 'LIKE', "%{$this->search}%")
+            ->withCount('items')
+            ->get();
+    }
+
     public function render()
     {
-        $this->shoppingLists = \App\Models\ShoppingList::query()
-            ->where('name', 'LIKE', "%{$this->search}%")
-            ->get();
-
         return view('shopping-lists.shopping-lists');
     }
 }

@@ -6,10 +6,9 @@ use App\Http\Livewire\ShoppingLists\{
     ShoppingList
 };
 
-
 Route::get('/test/', [\App\Http\Controllers\TestController::class, 'index']);
 
-Route::get('/', fn () => redirect()->route('shoppingLists.index') );
+Route::get('/', fn () => redirect()->route('login') );
 
 Route::middleware(['auth:sanctum', 'verified'])->group( function () {
 

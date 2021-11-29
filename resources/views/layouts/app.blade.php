@@ -30,9 +30,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-{{--    <link rel="stylesheet" href="{{ asset('css/app.css') .'?v='. rand(20,300) }}"> --}}
-
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}{{ app()->isLocal() ? '?v=' . rand(1,9999) : '' }}">
 
         @livewireStyles
         <!-- Scripts -->

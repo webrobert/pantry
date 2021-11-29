@@ -7,8 +7,8 @@ use Livewire\Component;
 
 class AddListModal extends Component
 {
-    public $store;
-    public $showStoreModal = false;
+    public $list;
+    public $showListModal = false;
 
     protected $listeners = [
         'editShoppingList' => 'edit',
@@ -17,51 +17,51 @@ class AddListModal extends Component
 
     public function mount()
     {
-        $this->store = new ShoppingList();
+        $this->list = new ShoppingList();
     }
 
     protected function rules()
     {
         return [
-            'store.name' => 'required',
+            'list.name' => 'required',
         ];
     }
 
     public function create($name = null)
     {
-        $this->store = new ShoppingList();
-        $this->store->fill(['name' => $name]);
-        $this->showStoreModal = true;
+        $this->list = new ShoppingList();
+        $this->list->fill(['name' => $name]);
+        $this->showListModal = true;
     }
 
     public function delete()
     {
-        $this->store->delete();
+        $this->list->delete();
 
-        $this->showStoreModal = false;
+        $this->showListModal = false;
 
         $this->emit('listDeleted');
     }
 
     public function edit($id)
     {
-        $this->store = ShoppingList::find($id);
-        $this->showStoreModal = true;
+        $this->list = ShoppingList::find($id);
+        $this->showListModal = true;
     }
 
     public function save()
     {
         $this->validate();
 
-        $this->store->save();
+        $this->list->save();
 
-        if($this->store->wasRecentlyCreated) {
-            return redirect()->route('shoppingLists.show', $this->store->id);
+        if($this->list->wasRecentlyCreated) {
+            return redirect()->route('shoppingLists.show', $this->list->id);
         }
 
-        $this->showStoreModal = false;
+        $this->showListModal = false;
 
-        $this->emit('shoppingListSaved', $this->store);
+        $this->emit('shoppingListSaved', $this->list);
     }
 
 
