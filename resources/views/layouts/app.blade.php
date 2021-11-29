@@ -32,7 +32,7 @@
         <!-- Styles -->
 {{--    <link rel="stylesheet" href="{{ asset('css/app.css') .'?v='. rand(20,300) }}"> --}}
 
-        <link rel="stylesheet" href="{{ asset('css/app.css' }}">
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         @livewireStyles
         <!-- Scripts -->
