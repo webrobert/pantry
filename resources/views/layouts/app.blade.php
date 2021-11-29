@@ -40,7 +40,7 @@
     <body class="font-sans antialiased">
         <x-jet-banner />
 
-        <div class="min-h-screen bg-indigo-100">
+        <div class="min-h-screen bg-indigo-100" style="padding-bottom: 4.675rem; ">
             @livewire('navigation-menu')
 
             <!-- Page Heading -->

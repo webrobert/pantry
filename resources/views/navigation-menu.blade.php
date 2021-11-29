@@ -2,19 +2,22 @@
 
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+
+        {{--
         <div class="pt-2 pb-3 space-y-1">
             <!-- mobile navbar items -->
-            {{--            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">--}}
-            {{--                {{ __('Dashboard') }}--}}
-            {{--            </x-jet-responsive-nav-link>--}}
+            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
 
-            {{--            <x-jet-responsive-nav-link href="{{ route('shoppingLists.index') }}" :active="request()->routeIs('shoppingLists.index')">--}}
-            {{--                {{ __('Shopping Lists') }}--}}
-            {{--            </x-jet-responsive-nav-link>--}}
+            <x-jet-responsive-nav-link href="{{ route('shoppingLists.index') }}" :active="request()->routeIs('shoppingLists.index')">
+                {{ __('Shopping Lists') }}
+            </x-jet-responsive-nav-link>
         </div>
+        --}}
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-b border-gray-200">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="flex-shrink-0 mr-3">
@@ -40,7 +43,7 @@
                     </x-jet-responsive-nav-link>
                 @endif
 
-            <!-- Authentication -->
+                <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
 
@@ -82,7 +85,9 @@
                     @endforeach
                 @endif
             </div>
+
         </div>
+
     </div>
 
     <!-- Primary Navigation Menu -->

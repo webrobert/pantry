@@ -8,7 +8,7 @@ use App\Models\Item;
 
 class ShoppingList extends Component
 {
-    public $showHave = true;
+    public $showHave = false;
     public $sort = 'asc';
     public $activeItem;
     public $activeList;
