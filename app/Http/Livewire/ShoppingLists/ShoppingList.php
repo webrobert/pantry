@@ -24,15 +24,6 @@ class ShoppingList extends Component
         $this->activeList = $this->shoppingLists->where('id', $id)->first();
     }
 
-    public function changeList($id = null)
-    {
-        sleep(2);
-        return redirect()->to($id
-            ? route('shoppingLists.show', $id)
-            : route('items.index')
-        );
-    }
-
     public function checkItem($id)
     {
         Item::find($id)->toggleHave();
