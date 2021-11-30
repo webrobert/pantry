@@ -1,4 +1,4 @@
-<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4">
+<div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4" wire:loading.class="opacity-50" wire:target="changeList">
 
     <!-- Shopping List Top Navigation -->
     <div class="block flex items-center gap-3">
