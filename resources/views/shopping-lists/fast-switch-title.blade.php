@@ -1,3 +1,7 @@
+<a href="{{ route('shoppingLists.index') }}">
+    <x-svg.chevron-left class="h-5 w-5" />
+</a>
+
 <x-jet-dropdown align="left">
     <x-slot name="trigger">
         <h2 class="text-xl flex items-center font-semibold cursor-pointer">

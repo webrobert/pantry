@@ -15,6 +15,11 @@ class Item extends Model
         return $this->save();
     }
 
+    public function isOnList($list)
+    {
+        return $this->shoppingLists->contains($list->id);
+    }
+
     public function shoppingLists()
     {
         return $this->belongsToMany(ShoppingList::class)

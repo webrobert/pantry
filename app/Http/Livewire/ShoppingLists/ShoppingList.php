@@ -42,7 +42,7 @@ class ShoppingList extends Component
 
     protected function itemDoesntExist() : bool
     {
-        return ($this->activeList && $this->search && $this->items->isEmpty());
+        return ($this->activeList && $this->search);
     }
 
     public function getShoppingListsProperty()
@@ -64,7 +64,11 @@ class ShoppingList extends Component
     public function getItemsNotInListProperty()
     {
         return $this->itemDoesntExist()
-            ? Item::where('name', 'LIKE', "%{$this->search}%")->get()
+            ? Item::where('name', 'LIKE', "%{$this->search}%")
+                ->whereDoesntHave('shoppingLists', function ($q) {
+                    $q->where('id',$this->activeList->id);
+                })
+                ->get()
             : collect();
     }
 
@@ -76,7 +80,7 @@ class ShoppingList extends Component
 
         return $query
             ->where('name', 'LIKE', "%{$this->search}%")
-            ->when( ! $this->showHave, fn ($q) => $q->where('have', false))
+            ->when( ! $this->search && ! $this->showHave, fn ($q) => $q->where('have', false))
             ->get();
     }
 
