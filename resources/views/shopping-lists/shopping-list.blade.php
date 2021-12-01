@@ -25,7 +25,7 @@
     <!-- items -->
     <ul wire:sortable="updateItemOrder" wire:loading.class="opacity-50" wire:target="changeList" class="space-y-1 mt-4">
         @forelse($this->Items as $item)
-        <li @if($activeList) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}"
+        <li @if($activeList && $showHave) wire:sortable.item="{{ $item->id }}" @endif wire:key="item-{{ $item->id }}"
             class="bg-white flex items-center p-2 gap-3 shadow-md rounded-md">
 
             <label class="-m-2 flex-none p-2 px-3 flex items-center">
