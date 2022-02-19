@@ -33,19 +33,19 @@ We've just been using one set of credentials and that has worked fine.
 
 ###Screenshots
 
-<p align="center"><img src="storage/app/screenshots/shopping-lists.jpg" width="180"></p>
+<p align="center"><img src="public/screenshots/shopping-lists.jpg" width="180"></p>
 <p align="center">Simple searchable list view</p>
 
 
-<p align="center"><img src="storage/app/screenshots/shopping-list.jpg" width="180"></p>
+<p align="center"><img src="public/screenshots/shopping-list.jpg" width="180"></p>
 <p align="center">Same simple searchable shopping list view.</p>
 
 
-<p align="center"><img src="storage/app/screenshots/search.jpg" width="180"></p>
+<p align="center"><img src="public/screenshots/search.jpg" width="180"></p>
 <p align="center">Search for items in the list and also find items in other lists.</p>
 
 
-<p align="center"><img src="storage/app/screenshots/edit-item.jpg" width="180"></p>
+<p align="center"><img src="public/screenshots/edit-item.jpg" width="180"></p>
 <p align="center">Edit an item and its related lists.</p>
 
 
