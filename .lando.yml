@@ -1,0 +1,29 @@
+name: pantry
+recipe: laravel
+config:
+  webroot: ./public
+  php: '8.0'
+  via: apache
+  database: mysql
+  cache: redis
+services:
+  node:
+    type: node:16
+    scanner: false
+    build:
+      - npm install
+  mail:
+    type: mailhog
+    portforward: true
+    hogfrom:
+      - appserver
+tooling:
+  migrate:
+    service: appserver
+    cmd: php artisan migrate
+  npm:
+    service: node
+    cmd: npm
+proxy:
+  mail:
+    - mail.pantry.lndo.site
