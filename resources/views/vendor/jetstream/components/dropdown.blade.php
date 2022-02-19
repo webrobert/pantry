@@ -12,6 +12,9 @@ switch ($align) {
     case 'false':
         $alignmentClasses = '';
         break;
+    case 'bottom':
+        $alignmentClasses = 'origin-bottom-right right-0';
+        break;
     case 'right':
     default:
         $alignmentClasses = 'origin-top-right right-0';

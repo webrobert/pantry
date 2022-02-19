@@ -14,8 +14,8 @@ class AddItemModal extends Component
     public $item;
 
     protected $listeners = [
+        'createItemFromSearch' => 'create',
         'editItem' => 'edit',
-        'createItemFromSearch' => 'create'
     ];
 
     public function mount($shoppingList = null)

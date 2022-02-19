@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Robert',
-            'email' => 'robertw@hey.com',
-            'password' => '$2y$10$3AcHh8eujSwLVtEyl88MVeRYyIWHY8ofZ00WQoFxrpW5dmWjmXRYC'
+            'name' => 'Admin',
+            'email' => 'test@example.com',
+            'password' => '$2y$10$3AcHh8eujSwLVtEyl88MVeRYyIWHY8ofZ00WQoFxrpW5dmWjmXRYC' // password
         ]);
 
         (New CreateTeam)->create($user, [
@@ -26,8 +26,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         $this->call([
-            ShoppingListSeeder::class,
-            ItemsSeeder::class
+            ShoppingListSeeder::class, // create default lists
+            ItemsSeeder::class         // add items
         ]);
     }
 }

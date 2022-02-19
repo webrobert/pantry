@@ -1,66 +1,72 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://github.com/webrobert/pantry" target="_blank"><img src="public/apple-icon-180x180.png" width="180"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## About Pantry
 
-## About Laravel
+I wanted a clean shopping lists app. I was tired of stupid checklists and horrible ux. 
+I wanted to be able to add or check off milk or butter from multiple lists.
+I wanted to be able to sort items based on where they were in a given store.
+All while both my sweetheart, and I could manage shared lists and/or shop.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Pantry is made with Livewire as an experiment. 
+I think some frontend javascript-AplineJs maybe-could make it feel a little more peppy. 
+The draggable sorting needs work. It has issues on mobile. 
+Go easy. I wrote it over a weekend. 
+She loves it. And we use it for our shopping.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+###Purpose of the app
+- Simple easy to use UX.
+- Work on mobile or from a desktop
+- Visually clean
+- Sortable individual lists
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+###Future Ideas
 
-## Learning Laravel
+- I've thought about wiring Pantry up to stores to place online orders. 
+In the USA Kroger is a major Grocer. And,
+- I started playing with their api to get product information. 
+- Along those lines, I imagined we could also use Pantry as a virtual pantry to see what we currently have and wehn it expires.
+- Lots of potential..
+- I used Jetstream thinking the team feature would be useful to share lists. At present, it's not using teams to separate his/her team lists. 
+We've just been using one set of credentials and that has worked fine. 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+###Screenshots
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+<p align="center"><img src="storage/app/screenshots/shopping-lists.jpg" width="180"></p>
+<p align="center">Simple searchable list view</p>
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+<p align="center"><img src="storage/app/screenshots/shopping-list.jpg" width="180"></p>
+<p align="center">Same simple searchable shopping list view.</p>
 
+
+<p align="center"><img src="storage/app/screenshots/search.jpg" width="180"></p>
+<p align="center">Search for items in the list and also find items in other lists.</p>
+
+
+<p align="center"><img src="storage/app/screenshots/edit-item.jpg" width="180"></p>
+<p align="center">Edit an item and its related lists.</p>
+
+
+## Installing Pantry
+
+Do the typical Laravel commands... composer install and what not. 
+
+Then you can just run...
+
+``` php artisan migrate --seed```
+
+This does a few things...
+1. Creates a default user... `test@example.com`, and password `password`. See [/database/seeders/DatabaseSeeder.php](/database/seeders/DatabaseSeeder.php) (the app doesn't allow registration. It's meant to be a personal app)
+2. Creates a few default lists. See [/database/seeders/ShoppingListSeeder.php](/database/seeders/ShoppingListSeeder.php) 
+3. And creates related items for those lists using text files in the [/database/items](/database/items) directory. 
+These text files are actually just copy/pasted from my Apple notes checklists. The seeder parses them properly for this use case.
+
+**Bonus** (maybe): So if you happen to have some Apple Notes checklists you can create text files in the [/database/items](/database/items) directoy. 
+And as long as the textfile name matches a corresponding list name in [/database/seeders/ShoppingListSeeder.php](/database/seeders/ShoppingListSeeder.php) the items will be added to the correct lists.
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Thank you for considering contributing to Pantry. 
+It was just a pet project. So it's far from perfect. 
+And I am completely open to improvements, etc.
