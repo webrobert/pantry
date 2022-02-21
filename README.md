@@ -13,13 +13,13 @@ The draggable sorting needs work. It has issues on mobile.
 Go easy. I wrote it over a weekend. 
 She loves it. And we use it for our shopping.
 
-###Purpose of the app
+### Purpose of the app
 - Simple easy to use UX.
 - Work on mobile or from a desktop
 - Visually clean
 - Sortable individual lists
 
-###Future Ideas
+### Future Ideas
 
 - I've thought about wiring Pantry up to stores to place online orders. 
 In the USA Kroger is a major Grocer. And,
@@ -31,20 +31,20 @@ We've just been using one set of credentials and that has worked fine.
 
 
 
-###Screenshots
+### Screenshots
 
 <p align="center"><img src="public/screenshots/shopping-lists.jpg" width="180"></p>
 <p align="center">Simple searchable list view</p>
 
-
+<br>
 <p align="center"><img src="public/screenshots/shopping-list.jpg" width="180"></p>
 <p align="center">Same simple searchable shopping list view.</p>
 
-
+<br>
 <p align="center"><img src="public/screenshots/search.jpg" width="180"></p>
 <p align="center">Search for items in the list and also find items in other lists.</p>
 
-
+<br>
 <p align="center"><img src="public/screenshots/edit-item.jpg" width="180"></p>
 <p align="center">Edit an item and its related lists.</p>
 
@@ -55,16 +55,18 @@ Do the typical Laravel commands... composer install and what not.
 
 Then you can just run...
 
-``` php artisan migrate --seed```
+```zsh
+ php artisan migrate --seed
+```
 
-This does a few things...
-1. Creates a default user... `test@example.com`, and password `password`. See [/database/seeders/DatabaseSeeder.php](/database/seeders/DatabaseSeeder.php) (the app doesn't allow registration. It's meant to be a personal app)
-2. Creates a few default lists. See [/database/seeders/ShoppingListSeeder.php](/database/seeders/ShoppingListSeeder.php) 
-3. And creates related items for those lists using text files in the [/database/items](/database/items) directory. 
-These text files are actually just copy/pasted from my Apple notes checklists. The seeder parses them properly for this use case.
+This runs the [`DatabaseSeeder.php`](/database/seeders/DatabaseSeeder.php)
+which creates a few things...
+1. a default user... `test@example.com`, and password `password` (the app doesn't allow registration. It's meant to be a personal app).
+2. a few default lists via [`ShoppingListSeeder.php`](/database/seeders/ShoppingListSeeder.php) 
+3. items related to the default lists. These items are text files. I copy/pasted from my Apple notes checklists. The seeder parses them properly for this use case.
 
-**Bonus** (maybe): So if you happen to have some Apple Notes checklists you can create text files in the [/database/items](/database/items) directoy. 
-And as long as the textfile name matches a corresponding list name in [/database/seeders/ShoppingListSeeder.php](/database/seeders/ShoppingListSeeder.php) the items will be added to the correct lists.
+> 💡 **Bonus** (maybe): If you happen to have some Apple Notes checklists you can create text files in the [/database/items](/database/items) directory. 
+And as long as the textfile name matches a corresponding list name in [`ShoppingListSeeder.php`](/database/seeders/ShoppingListSeeder.php) the items will also be added to the correct lists.
 ## Contributing
 
 Thank you for considering contributing to Pantry. 

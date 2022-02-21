@@ -33,6 +33,10 @@ return [
     'kroger' => [
         'id' => env('KROGER_API_ID'),
         'secret' => env('KROGER_API_SECRET'),
-    ]
+    ],
 
+    // https://api.barcodelookup.com
+    'barcodelookup' => [
+        'key' => env('BARCODELOOKUP_KEY'),
+    ],
 ];

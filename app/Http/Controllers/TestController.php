@@ -10,34 +10,20 @@ class TestController extends Controller
 {
     public function index(Products $krogerProducts)
     {
-
-        return Http::get('https://api.barcodelookup.com/v3/products?barcode=9780140157376&formatted=y&key=kvd7rx16x4nnrv07bszoz2sobrhg5z')->collect();
-
-        // didn't work for body
-        Http::dump()->post('https://api.agora.io/v1/apps/test/cloud_recording/acquire', [
-            'body' => json_encode(["cname" => 'test'])
-        ]);
-
-        // HAD to set JSON, you were right.
-        // Too few arguments to function Illuminate\Http\Client\PendingRequest::withBody(),
-        Http::dump()->withBody(json_encode(["cname" => 'test']), 'application/json')
-            ->post('https://api.agora.io/v1/apps/test/cloud_recording/acquire');
-
-
-        return 'test';
-
-
+        return Http::get('https://api.barcodelookup.com/v3/products', [
+                'key'       => config('services.barcodelookup.key'),
+                'barcode'   => '9780140157376',
+                'formatted' => 'y',
+            ])
+            ->collect();
 
         return $krogerProducts->detail('0074236526497', '70300108');
 
         return $krogerProducts->search('0074236526497');
 
         // Our Ralphs 70300108
-
         return (new Locations())->detail('70300108');
-
     }
-
 
     protected function item()
     {
