@@ -47,7 +47,9 @@ class ShoppingList extends Component
 
     public function getShoppingListsProperty()
     {
-        return ShoppingListModel::all();
+        return ShoppingListModel::query()
+            ->withCount(['items', 'items as items_needed_count' => fn($q) => $q->where('have', false) ])
+            ->get();
     }
 
     public function getEmptyMessageProperty()

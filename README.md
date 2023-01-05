@@ -5,10 +5,10 @@
 I wanted a clean shopping lists app. I was tired of stupid checklists and horrible ux. 
 I wanted to be able to add or check off milk or butter from multiple lists.
 I wanted to be able to sort items based on where they were in a given store.
-All while both my sweetheart, and I could manage shared lists and/or shop.
+All while both my sweetheart, and I could manage shared lists and/or shop together.
 
 Pantry is made with Livewire as an experiment. 
-I think some frontend javascript-AplineJs maybe-could make it feel a little more peppy. 
+I think some frontend javascript-Aplinejs maybe-could make it feel a little more peppy. 
 The draggable sorting needs work. It has issues on mobile. 
 Go easy. I wrote it over a weekend. 
 She loves it. And we use it for our shopping.
@@ -25,7 +25,7 @@ She loves it. And we use it for our shopping.
 In the USA Kroger is a major Grocer. And,
 - I started playing with their api to get product information. 
 - Along those lines, I imagined we could also use Pantry as a virtual pantry to see what we currently have and wehn it expires.
-- Lots of potential..
+- Lots of potential...
 - I used Jetstream thinking the team feature would be useful to share lists. At present, it's not using teams to separate his/her team lists. 
 We've just been using one set of credentials and that has worked fine. 
 

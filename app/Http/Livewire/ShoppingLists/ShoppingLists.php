@@ -18,7 +18,8 @@ class ShoppingLists extends Component
     {
         return ShoppingList::query()
             ->where('name', 'LIKE', "%{$this->search}%")
-            ->withCount('items')
+            ->withCount(['items',
+	            'items as items_needed_count' => fn ($q) => $q->where('have', false) ])
             ->get();
     }
 
