@@ -19,17 +19,19 @@ She loves it. And we use it for our shopping.
 - Visually clean
 - Sortable individual lists
 
+### Ideas after a year of personal use
+- **Save for later**: We found that sometimes we need an item but don't want to get it today. So some kind of save for later or defer to hide for a day. Haven't thought out the best way to do this.
+- **Drag-and-drop-sorting**: I started this feature... but remember you have to have all items showing to sort. And after seeing how many items are on actual lists. I feel adding isles to help section the items would helpful. So while in store or at home you could also move an item to an isle using the number (or drag).
+
 ### Future Ideas
 
 - I've thought about wiring Pantry up to stores to place online orders. 
 In the USA Kroger is a major Grocer. And,
 - I started playing with their api to get product information. 
-- Along those lines, I imagined we could also use Pantry as a virtual pantry to see what we currently have and wehn it expires.
+- Along those lines, I imagined we could also use Pantry as a virtual pantry to see what we currently have and when it expires.
 - Lots of potential...
 - I used Jetstream thinking the team feature would be useful to share lists. At present, it's not using teams to separate his/her team lists. 
 We've just been using one set of credentials and that has worked fine. 
-
-
 
 ### Screenshots
 
