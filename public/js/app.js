@@ -5347,6 +5347,25 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Alpine = alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"];
 alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
+window.$notify = {
+  success: function success(message) {
+    this.sendit(message, 'success');
+  },
+  error: function error(message) {
+    this.sendit(message, 'error');
+  },
+  sendit: function sendit(message, type) {
+    window.dispatchEvent(new CustomEvent('notify', {
+      detail: {
+        message: message,
+        type: type
+      }
+    }));
+  }
+};
+Livewire.on('modal', function (data) {
+  $modals.show(data.modal, data.message);
+});
 
 /***/ }),
 

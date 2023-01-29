@@ -19,7 +19,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
         ->name('shoppingLists.show');
 
     Route::get('/shopping-lists', ShoppingLists::class)
-        ->name('shoppingLists.index');
+        ->name('shoppingLists.index')
+        ->middleware('clear.buy.later');
 
     Route::get('/items', ShoppingList::class)
         ->name('items.index');

@@ -8,9 +8,8 @@ use App\Models\Item;
 
 class AddItemModal extends Component
 {
-    public $showItemModal = false;
-    public $itemShoppingLists;
-    public $shoppingLists;
+	public $showItemShoppingListsModal;
+	public $showItemModal = false;
     public $item;
 
     protected $listeners = [
@@ -18,24 +17,29 @@ class AddItemModal extends Component
         'editItem' => 'edit',
     ];
 
+	protected $rules = [ 'item.name' => 'required', ];
+
     public function mount($shoppingList = null)
     {
-        $this->shoppingLists = ShoppingList::all();
         $this->shoppingList = $shoppingList;
         $this->item = new Item();
     }
 
-//    public function updatedShowItemModal()
-//    {
-//        $this->emit('itemActive', $this->item );
-//    }
+	public function getShoppingListsProperty()
+	{
+		return ShoppingList::all();
+	}
 
-    protected function rules()
-    {
-        return [
-            'item.name' => 'required',
-        ];
-    }
+	public function getItemShoppingListsProperty()
+	{
+		return $this->item->shoppinglists;
+	}
+
+	public function showOn($list)
+	{
+		return $list->hasItem($this->item) ||
+		       $list->isCurrent($this->shoppingList) && $this->item->isUnsaved();
+	}
 
     public function toggleList($id)
     {
@@ -45,8 +49,15 @@ class AddItemModal extends Component
         }
 
         $this->item->shoppingLists()->toggle($id);
-        $this->itemShoppingLists = $this->item->refresh()->shoppinglists->keyBy('id')->toArray();
+	    $this->item->refresh();
     }
+
+	public function buyNextAt($input)
+	{
+		$listId = $input != 'clear' ? $input : null;
+		$this->item->update(['buy_next_at_id' => $listId]);
+		$this->item->refresh();
+	}
 
     public function create($name = null)
     {
@@ -59,8 +70,7 @@ class AddItemModal extends Component
     public function edit($id)
     {
         $this->item = Item::find($id);
-        $this->emit('itemActive', $this->item );
-        $this->itemShoppingLists = $this->item->shoppinglists->keyBy('id')->toArray();
+        $this->emit('itemActive', $this->item);
         $this->showItemModal = true;
     }
 
@@ -68,31 +78,27 @@ class AddItemModal extends Component
     {
         $this->item->delete();
 
-        $this->showItemModal = false;
-        $this->reset('itemShoppingLists');
+	    $this->emit('itemDeleted');
 
-        $this->emit('itemDeleted');
+	    $this->showItemModal = false;
     }
 
     public function save()
     {
         $this->validate();
-
         $this->item->save();
 
-        if($this->item->wasRecentlyCreated && $this->shoppingList) {
+        if ($this->item->wasRecentlyCreated && $this->shoppingList) {
             $this->item->shoppingLists()->attach($this->shoppingList->id);
         }
 
-        $this->showItemModal = false;
-
         $this->emit('itemSaved', $this->item);
+
+	    $this->showItemModal = false;
     }
 
     public function render()
     {
-        $this->itemShoppingLists = $this->item->shoppinglists->keyBy('id')->toArray();
-
         return view('items.add-item-modal');
     }
 }

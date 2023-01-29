@@ -9,11 +9,23 @@ class Item extends Model
 {
     use HasFactory;
 
-    public function toggleHave()
+	public function buyLater(): bool
+	{
+		$this->buy_later = true;
+		return $this->save();
+	}
+
+	public function toggleHave(): bool
     {
         $this->have = ! $this->have;
+		$this->buy_next_at_id = null;
         return $this->save();
     }
+
+	public function isUnsaved(): bool
+	{
+		return ! $this->id;
+	}
 
     public function isOnList($list)
     {
@@ -27,4 +39,9 @@ class Item extends Model
                     ->withPivot('order')
                     ->orderByPivot('order','asc');
     }
+
+	public function buyNextAt()
+	{
+		return $this->belongsTo(ShoppingList::class, 'buy_next_at_id');
+	}
 }

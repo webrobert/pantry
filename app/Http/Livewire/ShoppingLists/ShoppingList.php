@@ -29,6 +29,12 @@ class ShoppingList extends Component
         Item::find($id)->toggleHave();
     }
 
+	public function buyLater($id)
+	{
+		Item::find($id)->buyLater();
+		$this->browserToaster('we send that one off to the fishes!');
+	}
+
     public function updateItemOrder($items)
     {
         if (! $this->activeList ) return;
@@ -48,7 +54,9 @@ class ShoppingList extends Component
     public function getShoppingListsProperty()
     {
         return ShoppingListModel::query()
-            ->withCount(['items', 'items as items_needed_count' => fn($q) => $q->where('have', false) ])
+            ->withCount(['items',
+	            'items as items_needed_count' => fn($q) => $q->where('have', false)
+            ])
             ->get();
     }
 
@@ -82,7 +90,14 @@ class ShoppingList extends Component
 
         return $query
             ->where('name', 'LIKE', "%{$this->search}%")
-            ->when( ! $this->search && ! $this->showHave, fn ($q) => $q->where('have', false))
+            ->when( ! $this->search && ! $this->showHave,
+	            fn ($q) => $q->where('have', false)
+		                     ->where('buy_later', false)
+	                         ->where(function ($query) {
+					            return $query->where('buy_next_at_id', $this->activeList?->id)
+					                         ->orWhere('buy_next_at_id', null);
+				            })
+            )
             ->get();
     }
 
