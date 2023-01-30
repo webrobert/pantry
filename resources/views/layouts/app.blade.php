@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        @if( app()->isLocal()) <script src="https://cdn.tailwindcss.com"></script> @endif
+{{--        @if( app()->isLocal()) <script src="https://cdn.tailwindcss.com"></script> @endif--}}
         <link rel="stylesheet" href="{{ asset('css/app.css') }}{{ app()->isLocal() ? '?v=' . rand(1,9999) : '' }}">
 
         @livewireStyles
@@ -62,7 +62,6 @@
         @stack('modals')
         <x-toaster-notification />
         @livewireScripts
-{{--        <script src="https://unpkg.com/@nextapps-be/livewire-sortablejs@0.1.1/dist/livewire-sortable.js"></script>--}}
         <script src="https://unpkg.com/@nextapps-be/livewire-sortablejs@0.2.0/dist/livewire-sortable.js"></script>
     </body>
 

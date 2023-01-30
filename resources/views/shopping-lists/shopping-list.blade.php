@@ -77,7 +77,7 @@
             timerRef = setTimeout(() => {
                 isLongPress = true;
                 action = 'longpress';
-            }, 400)
+            }, 300)
         }
     </script>
 
