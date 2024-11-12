@@ -9,7 +9,7 @@ use App\Models\Item;
 class AddItemModal extends Component
 {
 	public $showItemShoppingListsModal;
-	public $showItemModal = false;
+	public $showItemModal;
     public $item;
 
     protected $listeners = [
@@ -17,7 +17,9 @@ class AddItemModal extends Component
         'editItem' => 'edit',
     ];
 
-	protected $rules = [ 'item.name' => 'required', ];
+	protected $rules = [
+		'item.name' => 'required',
+	];
 
     public function mount($shoppingList = null)
     {
@@ -35,34 +37,11 @@ class AddItemModal extends Component
 		return $this->item->shoppinglists;
 	}
 
-	public function showOn($list)
-	{
-		return $list->hasItem($this->item) ||
-		       $list->isCurrent($this->shoppingList) && $this->item->isUnsaved();
-	}
-
-    public function toggleList($id)
-    {
-        if (! $this->item->id) {
-            $this->save();
-            $this->showItemModal = true;
-        }
-
-        $this->item->shoppingLists()->toggle($id);
-	    $this->item->refresh();
-    }
-
-	public function buyNextAt($input)
-	{
-		$listId = $input != 'clear' ? $input : null;
-		$this->item->update(['buy_next_at_id' => $listId]);
-		$this->item->refresh();
-	}
-
     public function create($name = null)
     {
         $this->item = new Item();
         $this->item->fill(['name' => $name]);
+
         $this->emit('itemActive', $this->item );
         $this->showItemModal = true;
     }
@@ -70,6 +49,7 @@ class AddItemModal extends Component
     public function edit($id)
     {
         $this->item = Item::find($id);
+
         $this->emit('itemActive', $this->item);
         $this->showItemModal = true;
     }
@@ -79,7 +59,6 @@ class AddItemModal extends Component
         $this->item->delete();
 
 	    $this->emit('itemDeleted');
-
 	    $this->showItemModal = false;
     }
 
@@ -93,9 +72,34 @@ class AddItemModal extends Component
         }
 
         $this->emit('itemSaved', $this->item);
-
 	    $this->showItemModal = false;
     }
+
+	public function showOn($list)
+	{
+		return $list->hasItem($this->item) ||
+		       $list->isCurrent($this->shoppingList) &&
+		       $this->item->isUnsaved();
+	}
+
+	public function toggleList($id)
+	{
+		if (! $this->item->id) {
+			$this->save();
+			$this->showItemModal = true;
+		}
+
+		$this->item->shoppingLists()->toggle($id);
+		$this->item->refresh();
+	}
+
+	public function buyNextAt($input)
+	{
+		$listId = $input != 'clear' ? $input : null;
+
+		$this->item->update(['buy_next_at_id' => $listId]);
+		$this->item->refresh();
+	}
 
     public function render()
     {

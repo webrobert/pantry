@@ -7,9 +7,7 @@
             this.type = type
             this.isOpen = true
             this.messageText = message
-            setTimeout(() => {
-                this.isOpen = false
-            }, 5000)
+            setTimeout(() => { this.isOpen = false }, 3000)
         }
      }"
      @notify.window="showNotification($event.detail.message, $event.detail.type)"
@@ -23,7 +21,7 @@
      x-transition:leave="transition ease-in duration-150"
      x-transition:leave-start="opacity-80 transform translate-x-0"
      x-transition:leave-end="opacity-0 transform translate-x-6"
-     class="fixed alert flex justify-between items-center right-3 bottom-0 sm:left-auto bg-white rounded-md text-sm p-2 pb-2 sm:py-5 sm:px-6 z-50 border shadow-lg space-x-4 opacity-95 sm: sm:m-8 sm:mr-6">
+     class="fixed alert flex justify-between items-center right-3 bottom-3 sm:left-auto bg-white rounded-md text-sm p-2 pb-2 sm:py-5 sm:px-6 z-50 border shadow-lg space-x-4 opacity-95 sm: sm:m-8 sm:mr-6">
 
     <div class="font-semibold flex mr-1 sm:mr-4 items-center">
         <svg :class="type == 'success' ? 'text-green-500' : 'text-red-500'" class="h-7 w-7 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

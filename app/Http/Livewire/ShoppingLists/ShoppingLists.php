@@ -17,9 +17,8 @@ class ShoppingLists extends Component
     public function getShoppingListsProperty()
     {
         return ShoppingList::query()
-            ->where('name', 'LIKE', "%{$this->search}%")
-            ->withCount(['items',
-	            'items as items_needed_count' => fn ($q) => $q->where('have', false) ])
+            ->search($this->search)
+            ->withItemCounts()
             ->get();
     }
 

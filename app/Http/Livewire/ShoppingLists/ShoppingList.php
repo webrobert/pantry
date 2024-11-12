@@ -24,39 +24,10 @@ class ShoppingList extends Component
         $this->activeList = $this->shoppingLists->where('id', $id)->first();
     }
 
-    public function checkItem($id)
-    {
-        Item::find($id)->toggleHave();
-    }
-
-	public function buyLater($id)
-	{
-		Item::find($id)->buyLater();
-		$this->browserToaster('we send that one off to the fishes!');
-	}
-
-    public function updateItemOrder($items)
-    {
-        if (! $this->activeList ) return;
-
-        collect($items)->each( function($item) {
-            $this->activeList->items()->updateExistingPivot( $item['value'], [
-                'order' => $item['order'],
-            ]);
-        });
-    }
-
-    protected function itemDoesntExist() : bool
-    {
-        return ($this->activeList && $this->search);
-    }
-
-    public function getShoppingListsProperty()
+	public function getShoppingListsProperty()
     {
         return ShoppingListModel::query()
-            ->withCount(['items',
-	            'items as items_needed_count' => fn($q) => $q->where('have', false)
-            ])
+            ->withItemCounts()
             ->get();
     }
 
@@ -74,10 +45,8 @@ class ShoppingList extends Component
     public function getItemsNotInListProperty()
     {
         return $this->itemDoesntExist()
-            ? Item::where('name', 'LIKE', "%{$this->search}%")
-                ->whereDoesntHave('shoppingLists', function ($q) {
-                    $q->where('id',$this->activeList->id);
-                })
+            ? Item::search($this->search)
+		        ->notInList($this->activeList->id)
                 ->get()
             : collect();
     }
@@ -89,17 +58,37 @@ class ShoppingList extends Component
             : Item::query();
 
         return $query
-            ->where('name', 'LIKE', "%{$this->search}%")
-            ->when( ! $this->search && ! $this->showHave,
-	            fn ($q) => $q->where('have', false)
-		                     ->where('buy_later', false)
-	                         ->where(function ($query) {
-					            return $query->where('buy_next_at_id', $this->activeList?->id)
-					                         ->orWhere('buy_next_at_id', null);
-				            })
-            )
+            ->search($this->search)
+            ->when(! $this->search && ! $this->showHave, fn($q) => $q->toShopFor($this->activeList) )
             ->get();
     }
+
+	public function checkItem($id)
+	{
+		Item::find($id)->toggleHave();
+	}
+
+	public function buyLater($id)
+	{
+		Item::find($id)->buyLater();
+		$this->browserToaster('we sent that one off to the fishes!');
+	}
+
+	public function updateItemOrder($items)
+	{
+		if (! $this->activeList) return;
+
+		collect($items)->each( function($item) {
+			$this->activeList->items()->updateExistingPivot( $item['value'], [
+				'order' => $item['order'],
+			]);
+		});
+	}
+
+	protected function itemDoesntExist() : bool
+	{
+		return ($this->activeList && $this->search);
+	}
 
     public function render()
     {

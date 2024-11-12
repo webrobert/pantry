@@ -29,7 +29,9 @@
                         @foreach($this->shoppingLists as $list)
                             <button wire:click="toggleList({{ $list->id }})"
                                     wire:key=list-"{{ $list->id }}" class="flex items-center">
-                                <svg class="mr-2 h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="mr-2 h-5 w-5"
+                                        {{-- add style conditional here --}}
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
                                     @if ($this->showOn($list))
                                         <path class="text-green-400" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     @else
@@ -76,7 +78,7 @@
                 </div>
             </div>
 
-            {{-- <livewire:products.product-suggestions />--}}
+            {{-- <livewire:products.product-suggestions /> --}}
         </x-slot>
 
         <x-slot name="footer" class="flex justify-between items-center">

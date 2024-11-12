@@ -1,6 +1,6 @@
 <div class="block mt-4 flex items-center gap-3">
     <div class="search relative w-full">
-        <x-jet-input wire:model="search" class="px-2 py-2 text-lg w-full" placeholder="Search" />
+        <x-jet-input wire:model="search" class="px-2.5 py-2 text-lg w-full" placeholder="Search" />
         @if($search)
             <button wire:click="$set('search', '')" wire:loading.attr="disabled" wire:loading.class="opacity-50"
                     class="absolute right-0 top-0 flex-none text-gray-400 p-2 px-3 flex items-center">

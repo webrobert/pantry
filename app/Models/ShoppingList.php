@@ -10,6 +10,9 @@ class ShoppingList extends Model
 {
     use HasFactory;
 
+	/*
+	 * Relationships
+	 */
     public function items($dir = 'asc'): BelongsToMany
     {
         return $this->belongsToMany(Item::class)
@@ -17,6 +20,25 @@ class ShoppingList extends Model
             ->orderByPivot('order', $dir);
     }
 
+	/*
+	 * Scopes
+	 */
+	public function scopeSearch($query, $string)
+	{
+		return $query->where('name', 'LIKE', "%{$string}%");
+	}
+
+	public function scopeWithItemCounts($query)
+	{
+		return $query->withCount(['items',
+			'items as items_needed_count' => fn ($q) => $q->where('have', false)
+		]);
+
+	}
+
+	/*
+	 * Methods
+	 */
 	public function isCurrent($list): bool
 	{
 		return $this->id == $list?->id;
