@@ -18,4 +18,3 @@ _ide_helper_models.php
 .editorconfig
 app/Http/Controllers/TestController.php
 **/.DS_Store
-.DS_Store

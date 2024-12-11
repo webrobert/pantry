@@ -43,9 +43,16 @@ class Item extends Model
 			                     ->orWhere('buy_next_at_id', null)
 			);
 	}
+
+
 	public function scopeNotInList($query, $listId)
 	{
 		return $query->whereDoesntHave('shoppingLists', fn($q) => $q->where('id', $listId) );
+	}
+
+	public function scopeIsChecked($query)
+	{
+		return $query->where('have', true);
 	}
 
 	/*

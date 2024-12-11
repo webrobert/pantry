@@ -1,6 +1,6 @@
 @php($key ?? 'item')
 <li wire:key="{{ $key }}-{{ $item->id }}"
-    @if($activeList && $showHave) wire:sortable.item="{{ $item->id }}" wire:sortable.options="{ }" @endif
+    @if($activeList && $show === 'manage') wire:sortable.item="{{ $item->id }}" wire:sortable.options="{ }" @endif
     class="bg-white flex items-center p-2 gap-2 shadow-md rounded-md">
 
         @if($key == 'item')
@@ -20,13 +20,18 @@
         </label>
     @endif
 
-    <h4 class="flex-grow text-lg truncate">{{ $item->name }}</h4>
+    <h4 class="flex-grow text-lg truncate">
+            {{ $item->name }}
+        @if($item->quantity > 1)
+            <span class="text-gray-500">({{ $item->quantity }})</span>
+        @endif
+    </h4>
 
     <div class="text-gray-400 flex items-center gap-3">
 
         @if($key == 'item')
         <button wire:sortable.handle
-                class="{{ $activeList && $showHave ? '-m-2 flex-none p-2 px-3 flex items-center pr-4' : 'hidden' }}">
+                class="{{ $activeList && $show === 'manage' ? '-m-2 flex-none p-2 px-3 flex items-center pr-4' : 'hidden' }}">
             <x-svg.selector class="h-5 w-5 transform active:scale-110" />
         </button>
         @endif

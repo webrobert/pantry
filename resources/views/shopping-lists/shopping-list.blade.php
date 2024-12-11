@@ -7,19 +7,17 @@
         @include('shopping-lists.fast-switch-title')
 
         <div class="flex gap-3 uppercase ml-auto items-center">
-            <button wire:click="$set('showHave', false)" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                    class="flex items-center {{ ! $showHave ?: 'text-gray-400'}}">
-                <x-svg.shopping-cart class="h-6 w-6"  />
-                <span class="hidden md:inline-block ml-1 uppercase text-sm
-                             border-dotted border-b-2 border-white">Shop</span>
-            </button>
+            <x-submenu-item wire:click="$set('show', 'shop')" :isActive="$show === 'shop'" label="shop">
+                @slot('icon') <x-svg.shopping-cart class="h-6 w-6"  /> @endslot
+            </x-submenu-item>
 
-            <button wire:click="$set('showHave', true)" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                    class="flex items-center mt-0.5 {{ $showHave ?: 'text-gray-400'}}">
-                <x-svg.potion class="h-6 w-6" />
-                <span class="hidden md:inline-block ml-1 uppercase text-sm
-                             border-dotted border-b-2 border-white">Manage</span>
-            </button>
+            <x-submenu-item wire:click="$set('show', 'manage')" :isActive="$show === 'manage'" label="manage">
+                @slot('icon') <x-svg.potion class="h-6 w-6"  /> @endslot
+            </x-submenu-item>
+
+            <x-submenu-item wire:click="$set('show', 'recent')" :isActive="$show === 'recent'" label="recent">
+                @slot('icon') <x-svg.redo class="h-6 w-6"  /> @endslot
+            </x-submenu-item>
         </div>
 
     </div>

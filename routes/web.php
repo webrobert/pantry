@@ -1,10 +1,7 @@
 <?php
 
+use App\Http\Livewire\ShoppingLists\{ShoppingList, ShoppingLists};
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\ShoppingLists\{
-    ShoppingLists,
-    ShoppingList
-};
 
 Route::get('/test/', [\App\Http\Controllers\TestController::class, 'index']);
 

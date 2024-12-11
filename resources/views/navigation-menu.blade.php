@@ -90,7 +90,6 @@
 
                 <!-- Navigation Links -->
                 <div class="space-x-4 -my-px ml-6 md:ml-8 flex">
-
                     <x-jet-nav-link href="{{ route('shoppingLists.index') }}" :active="request()->routeIs('shoppingLists.index')">
                         {{ __('Shopping Lists') }}
                     </x-jet-nav-link>

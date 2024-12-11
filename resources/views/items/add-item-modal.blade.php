@@ -4,17 +4,30 @@
 
         <x-slot name="content">
 
-            <x-jet-input x-ref="name" wire:model="item.name" class="px-2.5 py-2.5 w-full" placeholder="Item name..." />
+            <div class="relative w-full">
+                <x-jet-input x-ref="name" wire:model="item.name" class="px-2.5 py-2.5 w-full shadow-lg" placeholder="Item name..." />
+
+                <div class="flex items-center absolute right-2 top-2">
+                    <svg wire:click="decrementQty" class="w-7 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+
+                    <span class="text-sm w-5 text-center">{{ $item->quantity }}</span>
+
+                    <svg wire:click='incrementQty' class="w-7 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
+                        <path  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+                </div>
+            </div>
 
             <div class="mt-4 on-lists" x-data="{itemLists : false}" @click.away="itemLists = false">
                 <x-input-with-floating-label>
                     @slot('value', $this->shoppingLists->filter( fn($list) => $this->showOn($list))->map->name->join(', ', ' and '))
-
                     @slot('label', 'On shopping lists')
                     @slot('action')
                         <div @click="itemLists = !itemLists" class="absolute inset-0 flex justify-end z-20">
                             <div class="ml-auto flex items-center px-2 pt-1">
-                                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="h-7 w-7" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
                                     <path class="text-green-400" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
@@ -29,9 +42,9 @@
                         @foreach($this->shoppingLists as $list)
                             <button wire:click="toggleList({{ $list->id }})"
                                     wire:key=list-"{{ $list->id }}" class="flex items-center">
-                                <svg class="mr-2 h-5 w-5"
+                                <svg class="mr-2 h-7 w-7"
                                         {{-- add style conditional here --}}
-                                     fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                     fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
                                     @if ($this->showOn($list))
                                         <path class="text-green-400" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     @else
@@ -53,7 +66,7 @@
                     @slot('action')
                         <div @click="buyNextAt = !buyNextAt" class="absolute inset-0 flex justify-end z-20">
                             <div class="ml-auto flex items-center px-2 pt-1" @if($this->item->buyNextAt) @click="$wire.buyNextAt('clear')" @endif>
-                                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="h-7 w-7" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
                                     @if ($this->item->buyNextAt)
                                         <path class="text-green-400" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                     @else

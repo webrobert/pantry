@@ -32,6 +32,25 @@ class AddItemModal extends Component
 		return ShoppingList::all();
 	}
 
+	public function decrementQty()
+	{
+		$this->item->quantity--;
+
+		$this->item->save();
+
+		$this->emit('itemSaved', $this->item);
+
+	}
+
+	public function incrementQty()
+	{
+		$this->item->quantity++;
+
+		$this->item->save();
+
+		$this->emit('itemSaved', $this->item);
+	}
+
 	public function getItemShoppingListsProperty()
 	{
 		return $this->item->shoppinglists;

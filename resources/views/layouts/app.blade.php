@@ -30,7 +30,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-{{--        @if( app()->isLocal()) <script src="https://cdn.tailwindcss.com"></script> @endif--}}
+        @if( app()->isLocal()) <script src="https://cdn.tailwindcss.com"></script> @endif
         <link rel="stylesheet" href="{{ asset('css/app.css') }}{{ app()->isLocal() ? '?v=' . rand(1,9999) : '' }}">
 
         @livewireStyles
@@ -53,7 +53,6 @@
                 </header>
             @endif
 
-            <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>

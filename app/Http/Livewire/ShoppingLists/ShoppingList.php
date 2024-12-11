@@ -8,11 +8,12 @@ use App\Models\Item;
 
 class ShoppingList extends Component
 {
-    public $showHave = false;
+	public $show = 'shop';
     public $sort = 'asc';
     public $activeItem;
     public $activeList;
     public $search;
+	public $recent;
 
     protected $listeners = [
         'itemDeleted' => '$refresh',
@@ -34,11 +35,11 @@ class ShoppingList extends Component
     public function getEmptyMessageProperty()
     {
         return match(true) {
-            $this->search && ! $this->showHave   => "No matches in to shop for",
-            ! $this->search && ! $this->showHave => "Nothing to shop for in this list",
-            $this->search && ! $this->activeList => "No matching items",
-            ! $this->search                      => "This list is empty",
-            default                              => "No matches in this list",
+            $this->search   && $this->show === 'shop'   => "No matches in to shop for",
+            ! $this->search && $this->show === 'shop'   => "Nothing to shop for in this list",
+            $this->search   && ! $this->activeList      => "No matching items",
+            ! $this->search                             => "This list is empty",
+            default                                     => "No matches in this list",
         };
     }
 
@@ -59,13 +60,16 @@ class ShoppingList extends Component
 
         return $query
             ->search($this->search)
-            ->when(! $this->search && ! $this->showHave, fn($q) => $q->toShopFor($this->activeList) )
-            ->get();
+	        ->when($this->show === 'recent', fn($q) => $q->orderByDesc('updated_at')->take(10)->isChecked())
+	        ->when(!$this->search && $this->show === 'shop', fn($q) => $q->toShopFor($this->activeList))
+	        ->get();
     }
 
 	public function checkItem($id)
 	{
 		Item::find($id)->toggleHave();
+
+		if($this->show === 'recent') $this->reset(['show']);
 	}
 
 	public function buyLater($id)
