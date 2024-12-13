@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\TestController;
 use App\Http\Livewire\ShoppingLists\{ShoppingList, ShoppingLists};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test/', [\App\Http\Controllers\TestController::class, 'index']);
+Route::get('/test/', [TestController::class, 'index']);
 
 Route::get('/', fn () => redirect()->route('login') );
 

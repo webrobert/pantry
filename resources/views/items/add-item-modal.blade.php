@@ -12,7 +12,7 @@
                         <path d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
 
-                    <span class="text-sm w-5 text-center">{{ $item->quantity }}</span>
+                    <span class="text-sm w-5 text-center">{{ $item->quantity ?? 1 }}</span>
 
                     <svg wire:click='incrementQty' class="w-7 text-green-600" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24">
                         <path  d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />

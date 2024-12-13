@@ -34,12 +34,13 @@ class AddItemModal extends Component
 
 	public function decrementQty()
 	{
-		$this->item->quantity--;
+		if ( $this->item->quantity === 1 ) return;
+
+		$this->item->quantity --;
 
 		$this->item->save();
 
-		$this->emit('itemSaved', $this->item);
-
+		$this->emit( 'itemSaved', $this->item );
 	}
 
 	public function incrementQty()
