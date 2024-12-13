@@ -34,12 +34,13 @@ class ItemsSeeder extends Seeder
 
     protected function addItem($string)
     {
-        $pos = 5;
+        $pos      = 5;
         $checkbox = substr($string, 0, $pos+1);
-        $name = substr($string, $pos+1);
+        $name     = substr($string, $pos+1);
 
         return Item::firstOrCreate([
-            'name' => $name,
+	        'team_id' => 1,
+	        'name' => $name,
             'have' => str_contains('- [x] ', $checkbox)
         ]);
     }

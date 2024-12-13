@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ShoppingList extends Model
 {
-    use HasFactory;
+	use HasFactory, BelongsToTeam;
 
 	/*
 	 * Relationships
@@ -30,10 +30,10 @@ class ShoppingList extends Model
 
 	public function scopeWithItemCounts($query)
 	{
-		return $query->withCount(['items',
+		return $query->withCount([
+			'items',
 			'items as items_needed_count' => fn ($q) => $q->where('have', false)
 		]);
-
 	}
 
 	/*

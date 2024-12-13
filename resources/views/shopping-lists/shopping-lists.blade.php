@@ -1,5 +1,7 @@
 <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4">
 
+    Current Team: {{ session()->get('current_team_id') }}
+
     <h2 class="text-xl flex items-center font-semibold">Shopping Lists</h2>
     @include('components.search-filter')
 

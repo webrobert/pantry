@@ -2,28 +2,19 @@
 
 namespace Database\Seeders;
 
-use App\Actions\Jetstream\CreateTeam;
+use App\Actions\Fortify\CreateNewUser;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
     public function run()
     {
-        $user = User::create([
-            'name' => 'Admin',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password')
-        ]);
-
-        (New CreateTeam)->create($user, [
-            'name' => "{$user->name}'s Team"
-        ]);
+	    (new CreateNewUser)->create([
+		    'name' => 'Admin',
+		    'email' => 'test@example.com',
+		    'password' => 'password',
+		    'password_confirmation' => 'password'
+	    ]);
 
         $this->call([
             ShoppingListSeeder::class, // create default lists

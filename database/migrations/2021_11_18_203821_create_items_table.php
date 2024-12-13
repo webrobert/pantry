@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+			$table->unsignedBigInteger('team_id');
             $table->string('name')->index();
             $table->boolean('have')->default(0);
             $table->timestamps();

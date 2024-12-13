@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Item extends Model
 {
-    use HasFactory;
+    use HasFactory, BelongsToTeam;
 
 	/*
 	 * Relationships
@@ -43,7 +43,6 @@ class Item extends Model
 			                     ->orWhere('buy_next_at_id', null)
 			);
 	}
-
 
 	public function scopeNotInList($query, $listId)
 	{

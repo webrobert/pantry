@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
+use App\Models\User;
 use App\Services\KrogerApi\Locations;
 use App\Services\KrogerApi\Products;
 use Illuminate\Support\Facades\Http;
