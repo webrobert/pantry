@@ -12,11 +12,11 @@ class AddListModal extends Component
 
     protected $listeners = [
         'editShoppingList' => 'edit',
-        'createItemFromSearch' => 'create'
+        'createItemFromSearch' => 'createAndGoTo'
     ];
 
 	protected $rules = [
-		'list.name' => 'required',
+		'list.name' => 'required|string|max:255',
 	];
 
     public function mount()
@@ -24,7 +24,14 @@ class AddListModal extends Component
         $this->list = new ShoppingList();
     }
 
-    public function create($name = null)
+	public function createAndGoTo($name = null)
+	{
+		$list = ShoppingList::create(['name' => $name]);
+
+		return redirect()->route('shoppingLists.show', $list->id);
+	}
+
+    public function createWithModal($name = null)
     {
         $this->list = new ShoppingList();
         $this->list->fill(['name' => $name]);

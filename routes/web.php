@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TestController;
+use App\Http\Livewire\Items\BulkCreate;
 use App\Http\Livewire\ShoppingLists\{ShoppingList, ShoppingLists};
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group( function () {
     Route::get('/items', ShoppingList::class)
         ->name('items.index');
 
+	Route::get('/items/bulk-create', BulkCreate::class)
+	     ->name('items.bulk-create');
 });
