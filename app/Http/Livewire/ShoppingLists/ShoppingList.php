@@ -65,6 +65,7 @@ class ShoppingList extends Component
 	        ->get();
     }
 
+	
 	public function checkItem($id)
 	{
 		Item::find($id)->toggleHave();
